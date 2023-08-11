@@ -1,42 +1,32 @@
-<template>
-  <div>
-    <div>{{ $t('This is the project page wrapper') }}</div>
-    {{ $store.state.project.count }}
-    <nuxt-child />
-  </div>
-</template>
+<script setup lang="ts">
+import { useProjectStore } from '~/store/project';
 
-<script>
-import { projectStore } from '@/store-lazy/project';
-import {
-  defineComponent,
-  onMounted,
-  onUnmounted,
-  useStore,
-} from '@nuxtjs/composition-api';
+defineOptions({ name: 'ProjectsPage' });
 
-export default defineComponent({
-  setup() {
-    const store = useStore();
+const { t } = useI18n();
 
-    store.registerModule('project', projectStore);
-
-    onMounted(() => {
-      try {
-        store.dispatch('project/getMany');
-      } catch (e) {
-        console.error(e);
-      }
-    });
-
-    onUnmounted(() => store.unregisterModule('project'));
-
-    return {};
-  },
+const projectStore = useProjectStore();
+onMounted(() => {
+  try {
+    projectStore.getMany();
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+  }
 });
 </script>
+
+<template>
+	<div>
+		<div>{{ t('This is the project page wrapper') }}</div>
+		{{ projectStore.count }}
+		<NuxtPage />
+	</div>
+</template>
 
 <i18n lang="yaml">
 vi:
   This is the project page wrapper: Đây là layout bọc ngoài trang dự án
+en:
+  This is the project page wrapper: This is the project page wrapper
 </i18n>

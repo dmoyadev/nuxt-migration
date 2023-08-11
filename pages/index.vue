@@ -1,46 +1,46 @@
+<script setup lang="ts">
+defineOptions({ name: 'IndexPage' });
+
+const { t } = useI18n();
+useHead({
+  title: t('Home page'),
+});
+
+const { locale, setLocale } = useI18n();
+</script>
+
 <template>
   <div :class="$style.abc">
-    <transition name="slide-fade" mode="out-in">
+    <Transition name="slide-fade" mode="out-in">
       <el-button
-        v-if="$store.getters.locale === 'en'"
-        key="en-button"
-        size="mini"
-        type="primary"
-        @click="$i18n.setLocale('vi')"
+          v-if="locale === 'vi'"
+          key="en-button"
+          size="small"
+          type="primary"
+          @click="setLocale('en')"
       >
-        {{ $t('Change language') }}
+        {{ t('Change language') }}
       </el-button>
+
       <el-button
-        v-else
-        key="vi-button"
-        size="mini"
-        type="danger"
-        @click="$i18n.setLocale('en')"
+          v-else
+          key="vi-button"
+          size="small"
+          type="primary"
+          @click="setLocale('vi')"
       >
-        {{ $t('Change language') }}
+        {{ t('Change language') }}
       </el-button>
-    </transition>
+    </Transition>
+
     <div>
-      <span class="text-primary-300"> {{ $t('Hello world!') }}</span>
-      <span class="text-warning-700">{{ $t('Hello world!') }}</span>
+      <span class="text-primary-300"> {{ t('Hello world!') }}</span>
+      <span class="text-warning-700">{{ t('Hello world!') }}</span>
     </div>
+
     <ExampleBase />
   </div>
 </template>
-
-<script>
-import { defineComponent } from '@nuxtjs/composition-api';
-
-export default defineComponent({
-  name: 'IndexPage',
-
-  head() {
-    return {
-      title: this.$t('Home page'),
-    };
-  },
-});
-</script>
 
 <style lang="scss" module>
 .abc {
@@ -53,4 +53,8 @@ vi:
   Home page: Trang chủ
   Hello world!: Xin chào thế giới!
   Change language: Đổi ngôn ngữ
+en:
+  Home page: Home page
+  Hello world!: Hello world!
+  Change language: Change language
 </i18n>

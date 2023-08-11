@@ -34,4 +34,3 @@ validate:
   credit_card_number: "Wrong credit card number format"
   credit_card_expire: "Wrong credit card expiration date format"
   credit_card_cvv: "Wrong credit card cvv format"
-  
